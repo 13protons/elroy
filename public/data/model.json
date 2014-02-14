@@ -1,0 +1,24 @@
+{
+		"fog":  {
+			"iconUrl": "images/Raspberry_Pi_Logo.svg",
+			"devices": [
+				{
+					"iconUrl": "images/Arduino_icon_white_on_seafoam.svg",
+					"type": "arduino",
+					"update": "http://localhost:3002/hello/photosensor"
+				},
+				{
+					"iconUrl": "images/Arduino_icon_white_on_seafoam.svg",
+					"type": "arduino",
+					"update": "http://localhost:3002/hello/led"
+				}
+			]
+		},
+		"consumers": [
+			{
+				"iconUrl": "images/iphone.png",
+				"type": "iphone",
+				"update": "http://localhost:3002/hello/led"
+			}
+		]
+}

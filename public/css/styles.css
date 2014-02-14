@@ -96,8 +96,14 @@ html {
   border-radius: 1em;
   padding: 1em;
   margin-top: -1.6em;
-  background-color: #eee;
+  background-color: #fff;
   z-index: 0;
+}
+.node .state_open .content fieldset.hiddenControls {
+  display: none;
+}
+.node .state_open .content button {
+  margin-top: 1em;
 }
 .node .state_open .icon {
   width: 50px;
@@ -109,7 +115,7 @@ html {
   background-size: cover;
 }
 .node .state_open .icon img:hover {
-  opacity: .2;
+  opacity: 0.2;
 }
 .node .icon {
   border: 4px solid #333;

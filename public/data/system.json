@@ -12,7 +12,7 @@
 	  	"name": "Light Sensor"
 	  },
       "rel": [ "/rels/arduino" ], 
-      "href": "/devices/1"
+      "href": "http://localhost:3002/hello/photosensor"
     },
     { 
       "class": [ "device", "arduino" ],
@@ -20,7 +20,7 @@
 	  	"name": "Light"
 	  },
       "rel": [ "/rels/arduino" ], 
-      "href": "/devices/2"
+      "href": "http://localhost:3002/hello/led"
     },
 	{ 
       "class": [ "hub", "fog" ],

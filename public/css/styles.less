@@ -110,8 +110,15 @@ body, html {
 			border-radius: 1em;
 			padding: 1em;
 			margin-top: -1.6em;
-			background-color: #eee;
+			background-color: #fff;
 			z-index: 0;
+			
+			fieldset {
+				&.hiddenControls {display: none;}
+			}
+			button {
+					margin-top: 1em;
+			}
 		}
 		.icon {
 			width: 50px;
@@ -122,7 +129,8 @@ body, html {
 			background-image: url(../images/close.svg);
 			background-size: cover;
 			img:hover {
-				opacity: .2;
+				opacity: .2
+					
 			}
 		}
 	}

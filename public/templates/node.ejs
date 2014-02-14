@@ -1,0 +1,21 @@
+<div class="node closed <%= node.type %>" id="<%= node.id %>">
+	<div class="state_closed">
+		<div class="icon">
+			<img src="<%= node.iconUrl %>">
+		</div>
+		<div class="status_bubble status"><%= node.status %></div>
+	</div>
+	<div class="state_open">
+		<div class="icon">
+			<img src="<%= node.iconUrl %>">
+		</div>
+		<div class="content">
+			<div class="entityMeta">
+				<h3 class="name"></h3>
+				<p><strong>State: </strong><span class="state"></span></p>
+			</div>
+			<!-- siren form -->
+			<div class="actions"></div>
+		</div>
+	</div>
+</div>

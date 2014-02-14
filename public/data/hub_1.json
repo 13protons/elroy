@@ -1,0 +1,58 @@
+{
+	"class": ["hub"],
+	"properties": { 
+      "name": "Nextus", 
+      "protocols": ["UPD"],
+      "platform": "raspi",
+	  "presence": "emulated",
+	  "icon": null
+  },
+  "entities":  [
+  
+  ],
+  "actions": [
+	{
+      "name": "sensor-value",
+      "title": "Sensor Value",
+      "method": "GET",
+      "href": "/devices/1",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        { "name": "sensorValue", "type": "number" }
+      ]
+    },
+    {
+      "name": "light",
+      "title": "Light",
+      "method": "POST",
+      "href": "/devices/2",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        { "name": "light", "type": "checkbox" }
+      ]
+    },
+	{
+      "name": "light-button",
+      "title": "Light",
+      "method": "POST",
+      "href": "/consumer/1",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        { "name": "light", "type": "checkbox" }
+      ]
+    },
+	{
+      "name": "light-button",
+      "title": "Light",
+      "method": "GET",
+      "href": "/consumer/1",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        { "name": "light", "type": "checkbox" }
+      ]
+    }
+  ]
+  "links": [
+    { "rel": [ "self" ], "href": "/devices/2" },
+  ]
+}

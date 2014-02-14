@@ -1,0 +1,45 @@
+{
+  "class": [ "system" ],
+  "properties": { 
+      "name": "Elroy Example", 
+      "nodes": 4,
+      "v": "1"
+  },
+  "entities": [
+    { 
+      "class": [ "device", "arduino" ],
+	  "properties": {
+	  	"name": "Light Sensor"
+	  },
+      "rel": [ "/rels/arduino" ], 
+      "href": "/devices/1"
+    },
+    { 
+      "class": [ "device", "arduino" ],
+	  "properties": {
+	  	"name": "Light"
+	  },
+      "rel": [ "/rels/arduino" ], 
+      "href": "/devices/2"
+    },
+	{ 
+      "class": [ "hub", "fog" ],
+	  "properties": {
+	  	"name": "Nexus"
+	  },
+      "rel": [ "/rels/arduino" ], 
+      "href": "/hubs/1"
+    },
+	{ 
+      "class": [ "consumer", "iphone" ],
+	  "properties": {
+	  	"name": "Mobile App"
+	  },
+      "rel": [ "/rels/arduino" ], 
+      "href": "/consumers/1"
+    }
+  ],
+  "links": [
+    { "rel": [ "self" ], "href": "/systems/1" }
+  ]
+}

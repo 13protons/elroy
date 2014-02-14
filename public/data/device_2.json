@@ -1,0 +1,28 @@
+{
+	"class": ["device"],
+	"properties": { 
+      "name": "Light", 
+      "protocols": ["UPD"],
+      "platform": "arduino",
+	  "presence": "emulated",
+	  "icon": null
+  },
+  "entities":  [
+  
+  ],
+  "actions": [
+    {
+      "name": "light",
+      "title": "Light",
+      "method": "POST",
+      "href": "/devices/2",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        { "name": "light", "type": "checkbox" }
+      ]
+    }
+  ],
+  "links": [
+    { "rel": [ "self" ], "href": "/devices/2" },
+  ]
+}

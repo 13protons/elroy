@@ -1,0 +1,28 @@
+{
+	"class": ["device"],
+	"properties": { 
+      "name": "Light Sensor", 
+      "protocols": ["UPD"],
+      "platform": "arduino",
+	  "presence": "emulated",
+	  "icon": null
+  },
+  "entities":  [
+  
+  ],
+  "actions": [
+    {
+      "name": "sensor-value",
+      "title": "Sensor Value",
+      "method": "POST",
+      "href": "/devices/1",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        { "name": "sensorValue", "type": "number" }
+      ]
+    }
+  ],
+  "links": [
+    { "rel": [ "self" ], "href": "/devices/1" },
+  ]
+}

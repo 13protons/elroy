@@ -1,0 +1,38 @@
+{
+	"class": ["consumer"],
+	"properties": { 
+      "name": "Mobile App", 
+      "protocols": ["HTTP"],
+      "platform": "iphone",
+	  "presence": "emulated",
+	  "icon": null
+  },
+  "entities":  [
+  
+  ],
+  "actions": [
+    {
+      "name": "light-change",
+      "title": "Toggle Light: ",
+      "method": "POST",
+      "href": "/hub/1",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        { "name": "light", "type": "button" }
+      ]
+    },
+	{
+      "name": "light-status",
+      "title": "Light Is: ",
+      "method": "GET",
+      "href": "/hub/1",
+      "type": "application/x-www-form-urlencoded",
+      "fields": [
+        { "name": "light", "type": "button" }
+      ]
+    }
+  ],
+  "links": [
+    { "rel": [ "self" ], "href": "/consumer/1" },
+  ]
+}

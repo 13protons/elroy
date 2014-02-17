@@ -28,6 +28,17 @@ body, html {
 	
 }
 
+connection {
+	border: 5px solid @dark;
+	border-radius: 100px;
+	&.consumer-connection {
+		border-style: dashed;
+	}
+	&.backbone {
+		border: 20px solid @sky;
+	}
+}
+
 #cloud, #fog {
 	height: 50%;
 	width: 100%;
@@ -45,7 +56,7 @@ body, html {
 .node  {
 	position: relative;
 	float: left;
-	margin: 4em 2em 0 2em;
+	/* margin: 4em 2em 0 2em; */
   	
 	&.fog, &.cloud {
 		.icon {

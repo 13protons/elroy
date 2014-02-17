@@ -19,6 +19,16 @@ html {
   right: 0;
   /* overflow:hidden; */
 }
+connection {
+  border: 5px solid #000000;
+  border-radius: 100px;
+}
+connection.consumer-connection {
+  border-style: dashed;
+}
+connection.backbone {
+  border: 20px solid #8ed7ed;
+}
 #cloud,
 #fog {
   height: 50%;
@@ -36,7 +46,7 @@ html {
 .node {
   position: relative;
   float: left;
-  margin: 4em 2em 0 2em;
+  /* margin: 4em 2em 0 2em; */
 }
 .node.fog .icon,
 .node.cloud .icon {

@@ -57,10 +57,23 @@ $(function(){
 				}
 			}
 			
+			//connect the dots
+			$('.node.device').connections({
+			  to: '.node.fog',
+			  'class': 'fog-connection'
+			});
 			
+			$('.node.consumer').connections({
+			  to: '.node.cloud',
+			  'class': 'consumer-connection'
+			});
+			
+			$('.node.fog').connections({
+			  to: '.node.cloud',
+			  'class': 'backbone'
+			});
 
 			
-
 			function updateStates(){
 				for(key in model.fog.devices){
 					device = model.fog.devices[key];
@@ -70,6 +83,7 @@ $(function(){
 							//console.log(siren);
 							var target = $("#" + device.id);
 							if(target.data('state') != siren.properties.state){
+									target.effect( "shake" );
 									var state = siren.properties.state;
 									var name = siren.properties.name;
 									var actions = []
@@ -199,7 +213,19 @@ $(function(){
 				
 			});
 			
-			$(".node").draggable();
+			var c = $('connection');
+setInterval(function() {
+  c.connections('update');
+}, 1000);
+			
+			$(".node").draggable({
+				start: function(){
+				
+				},
+				drag: function(){
+					$(this).connections('update');
+				}
+			});
 			
 			$(".node").dblclick(function(e){
 				if(e.target.nodeName == "IMG"){

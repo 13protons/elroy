@@ -1,4 +1,7 @@
 $(function(){
+	var byline_template = '<p><strong><%= name %></strong> is <strong><%= state %></strong><p>';
+	var device_insert = '<div class="device_report <%= deviceId %>"></div>'
+	
 	$.get("data/model.json", function(model){
 		$.get("templates/node.ejs", function(_template){
 			$canvas = $("#canvas");
@@ -13,43 +16,50 @@ $(function(){
 			//ejs.render(template, data);
 			model.fog.id = "fog_1";
 			model.fog.html = renderNode("fog", model.fog);
-
-			$canvas.fog.append(model.fog.html);
 			
-			//render devices
-			for(key in model.fog.devices){
-				console.log(key);
-				device = model.fog.devices[key];
-				device.id = "device_" + key;
-				device.html = renderNode("device", device);
-				$canvas.fog.append(device.html);
-				model.fog.devices[key] = device;
-				//console.log(device);
-			}
+			model.cloud.id = "cloud_1";
+			model.cloud.html = renderNode("cloud", model.cloud);
+			//$canvas.fog.append(model.fog.html);
+			//$canvas.append(model.fog.html);
 			
 			//render consumers
 			for(key in model.consumers){
-				device = model.consumers[key];
-				device.id = "consumer_" + key;
-				device.html = renderNode("consumer", device);
-				$canvas.cloud.append(device.html);
-				model.consumers[key] = device;
+				consumer = model.consumers[key];
+				consumer.id = "consumer_" + key;
+				consumer.html = renderNode("consumer", consumer);
+				//$canvas.cloud.append(consumer.html);
+				$canvas.append(consumer.html);
+				model.consumers[key] = consumer;
 				//console.log(device);
+			}
+			$canvas.append(model.cloud.html);
+			$canvas.append(model.fog.html);
+			
+			//render devices
+			for(key in model.fog.devices){
+				
+				device = model.fog.devices[key];
+				device.id = "device_" + key;
+				device.html = renderNode("device", device);
+				//$canvas.fog.append(device.html);
+				$canvas.append(device.html);
+				model.fog.devices[key] = device;
+				
+				var insert = ejs.render(device_insert, {
+					"deviceId": device.id
+					});
+				
+				//stick in fog
+				$(".fog .content").append(insert);
+				//stick in consumers
+				for(key in model.consumers){
+					$("#" + model.consumers[key].id + " .content").append(insert);
+				}
 			}
 			
 			
 
-			$(".node").click(function(e){
-				if(e.target.nodeName == "IMG"){
-					if($(this).hasClass("open")){
-						$(this).removeClass("open");
-						$(this).addClass("closed");
-					}else {
-						$(this).removeClass("closed");
-						$(this).addClass("open");
-					}
-				}
-			});
+			
 
 			function updateStates(){
 				for(key in model.fog.devices){
@@ -61,17 +71,45 @@ $(function(){
 							var target = $("#" + device.id);
 							if(target.data('state') != siren.properties.state){
 									var state = siren.properties.state;
-									target.find(".entityMeta .name")
-										.html(siren.properties.name);
-								   	target.data('state', state);
+									var name = siren.properties.name;
+									var actions = []
+									
+									//for adding to consumers and fog
+									var byline = ejs.render(byline_template, {
+										"name": name,
+										"state": state
+									});
+									
+									$(".fog .content ." + device.id).empty().append(byline);
+
+									//update internals
+									target.find(".entityMeta .name").html(name);
+									target.data('state', state);
 									target.find(".status").html(state);
 									target.find(".entityMeta .state").html(state);
-									//update internals
+						
 									target.find(".content .actions").empty();
+								
 									for(i in siren.actions){
-										target.find(".content .actions")
-										.append(renderAction(siren.actions[i]));
+										actions[i] = renderAction(siren.actions[i]);
 									}
+									
+									for(i in actions){
+										console.log(actions[i]);
+										target.find(".content .actions")
+											.append(actions[i].clone());
+									}
+								
+									//add bylines and action to consumer
+									for(consumer_key in model.consumers){
+										consumer = model.consumers[consumer_key];
+										$c = $("#" + consumer.id + " .content ." + device.id);
+										$c.empty().append(byline);
+										for(i in actions){
+											$c.append(actions[i].clone())
+										}
+									}
+									
 							   }
 							
 						});
@@ -91,7 +129,7 @@ $(function(){
 			}
 			
 			function renderAction(action){
-				console.log("action: ", action);
+				//console.log("action: ", action);
 				var container = $('<form>');
 				var visible = false;
 				container.attr({
@@ -136,12 +174,16 @@ $(function(){
 			
 			$(".node").on("submit", "form", function(e){
 				e.preventDefault();
-				console.log($(this).serialize());
+				//console.log($(this).serialize());
 				$.ajax({
-					type: "PATCH",
+					type: "POST",
 					url: $(this).attr('action'),
 					data: $(this).serialize(), 
-					contentType: "application/vnd.siren+json",
+					headers: {
+						"Accept":"application/vnd.siren+json, application/json",
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					
 					success: function(){
 						console.log("success");
 						updateStates();
@@ -156,6 +198,27 @@ $(function(){
 				
 				
 			});
+			
+			$(".node").draggable();
+			
+			$(".node").dblclick(function(e){
+				if(e.target.nodeName == "IMG"){
+					if($(this).hasClass("closed")){
+						$(this).removeClass("closed");
+						$(this).addClass("open");
+					}
+				}
+			});
+			
+			$(".node").click(function(e){
+				if(e.target.nodeName == "IMG"){
+					if($(this).hasClass("open")){
+						$(this).removeClass("open");
+						$(this).addClass("closed");
+					}
+				}
+			});
+			
 			
 			updateStates();
 			model.refresh = window.setInterval(function(){
